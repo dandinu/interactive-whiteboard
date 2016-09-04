@@ -6,15 +6,15 @@ App = {}
 ###
 App.init = -> 
 	App.canvas = document.createElement 'canvas' #create the canvas element 
-	App.canvas.height = 400
-	App.canvas.width = 800  #size it up
+	App.canvas.height = window.innerHeight
+	App.canvas.width = window.innerWidth  #size it up
 	document.getElementsByTagName('article')[0].appendChild(App.canvas) #append it into the DOM 
 	
 	App.ctx = App.canvas.getContext("2d") # Store the context 
 	
 	# set some preferences for our line drawing.
 	App.ctx.fillStyle = "solid" 		
-	App.ctx.strokeStyle = "#ECD018"		
+	App.ctx.strokeStyle = "#1376AF"		
 	App.ctx.lineWidth = 5				
 	App.ctx.lineCap = "round"
 		

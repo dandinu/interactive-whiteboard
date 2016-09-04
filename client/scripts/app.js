@@ -11,12 +11,12 @@
 
   App.init = function() {
     App.canvas = document.createElement('canvas');
-    App.canvas.height = 400;
-    App.canvas.width = 800;
+    App.canvas.height = window.innerHeight;
+    App.canvas.width = window.innerWidth;
     document.getElementsByTagName('article')[0].appendChild(App.canvas);
     App.ctx = App.canvas.getContext("2d");
     App.ctx.fillStyle = "solid";
-    App.ctx.strokeStyle = "#ECD018";
+    App.ctx.strokeStyle = "#1376AF";
     App.ctx.lineWidth = 5;
     App.ctx.lineCap = "round";
     App.socket = io.connect('http://localhost:4000');
