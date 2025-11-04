@@ -28,9 +28,10 @@ npm start                      # Start server on port 4000
 ### Client-Server Model
 
 **Server (`server/server.js`):**
-- Node.js server using Socket.io v1.4.8
+- Node.js server using Socket.io v4.8.1
 - Listens on port 4000
 - **Stateless** - does not maintain drawing history
+- CORS enabled for all origins (configurable in server initialization)
 - Receives `drawClick` events from clients with coordinates and event type
 - Broadcasts `draw` events to all other connected clients via `socket.broadcast.emit()`
 
@@ -38,8 +39,8 @@ npm start                      # Start server on port 4000
 - Static HTML/CSS/JS served from filesystem (no web server needed)
 - Entry point: `index.html`
 - Main logic: `scripts/app.js`
-- Uses jQuery 1.6.2 and jquery.event.drag-2.0.js for event handling
-- Socket.io client connects to server for real-time sync
+- Uses jQuery 3.7.1 and jquery.event.drag-2.0.js for event handling
+- Socket.io client v4.8.1 connects to server for real-time sync
 
 ### Real-Time Drawing Flow
 
@@ -77,9 +78,12 @@ client/
 ## Key Technical Details
 
 - **Language:** Originally written in CoffeeScript, compiled to JavaScript (no build system in repo)
-- **Dependencies:** Only `socket.io` on server-side; client uses CDN for jQuery and local Socket.io client bundle
-- **Port:** Server hardcoded to port 4000 (both in server.js:5 and client/index.html:7)
-- **jQuery Version:** 1.6.2 with deprecated `.live()` method (client/scripts/app.js:44-58)
+- **Dependencies:**
+  - Server: `socket.io@^4.8.1`
+  - Client: jQuery 3.7.1 (Google CDN), socket.io-client v4.8.1 (served from server)
+- **Port:** Server hardcoded to port 4000 (both in server.js:5-10 and client/index.html:7)
+- **jQuery Version:** 3.7.1 with modern `.on()` event delegation (client/scripts/app.js:44)
+- **CORS:** Socket.io v4 requires explicit CORS configuration - currently set to allow all origins
 - **No persistence:** Drawings are not saved; only live-streamed during active sessions
 
 ## Modifying the Application
@@ -87,5 +91,15 @@ client/
 When making changes:
 - Server changes require restart: `npm start` in server/
 - Client changes need browser refresh
-- If changing port, update both `server/server.js` line 5 and `client/index.html` line 7
+- If changing port, update both `server/server.js` lines 5-10 and `client/index.html` line 7
 - Socket.io event contracts: ensure client `emit('drawClick', ...)` matches server `on('drawClick', ...)` signatures
+- CORS configuration can be adjusted in server initialization for production security
+
+## Recent Updates (November 2025)
+
+- **Socket.io**: Upgraded from v1.4.8 to v4.8.1
+  - Added CORS configuration for compatibility with v4
+  - Updated initialization syntax
+- **jQuery**: Upgraded from v1.6.2 to v3.7.1
+  - Replaced deprecated `.live()` with `.on()` event delegation
+  - All event handling now uses modern jQuery patterns

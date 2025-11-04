@@ -2,7 +2,12 @@
 (function() {
   var io;
 
-  io = require('socket.io').listen(4000);
+  io = require('socket.io')(4000, {
+    cors: {
+      origin: "*",
+      methods: ["GET", "POST"]
+    }
+  });
 
   io.sockets.on('connection', function(socket) {
     socket.on('drawClick', function(data) {
