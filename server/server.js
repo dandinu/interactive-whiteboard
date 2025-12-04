@@ -14,7 +14,9 @@
       socket.broadcast.emit('draw', {
         x: data.x,
         y: data.y,
-        type: data.type
+        type: data.type,
+        color: data.color || '#1376AF',
+        lineWidth: data.lineWidth || 5
       });
     });
   });

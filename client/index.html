@@ -11,5 +11,47 @@
 </head>
 <body>
 	<article><!-- the canvas will be inserted here--></article>
+
+	<!-- Toolbar -->
+	<div id="toolbar">
+		<div id="color-picker">
+			<span class="toolbar-label">Color:</span>
+			<div class="color-palette">
+				<button class="color-btn selected" data-color="#1376AF" style="background-color: #1376AF;"></button>
+				<button class="color-btn" data-color="#000000" style="background-color: #000000;"></button>
+				<button class="color-btn" data-color="#FFFFFF" style="background-color: #FFFFFF;"></button>
+				<button class="color-btn" data-color="#FF5733" style="background-color: #FF5733;"></button>
+				<button class="color-btn" data-color="#33FF57" style="background-color: #33FF57;"></button>
+				<button class="color-btn" data-color="#3357FF" style="background-color: #3357FF;"></button>
+				<button class="color-btn" data-color="#FFFF33" style="background-color: #FFFF33;"></button>
+				<button class="color-btn" data-color="#FF33FF" style="background-color: #FF33FF;"></button>
+				<button class="color-btn" data-color="#33FFFF" style="background-color: #33FFFF;"></button>
+				<button class="color-btn" data-color="#808080" style="background-color: #808080;"></button>
+			</div>
+		</div>
+
+		<div class="toolbar-divider"></div>
+
+		<div id="brush-size">
+			<span class="toolbar-label">Size:</span>
+			<div class="size-controls">
+				<button class="size-btn" data-size="2">S</button>
+				<button class="size-btn selected" data-size="5">M</button>
+				<button class="size-btn" data-size="10">L</button>
+				<button class="size-btn" data-size="20">XL</button>
+			</div>
+			<input type="range" id="size-slider" min="1" max="30" value="5">
+			<span id="size-value">5px</span>
+		</div>
+
+		<div class="toolbar-divider"></div>
+
+		<div id="brush-preview">
+			<span class="toolbar-label">Preview:</span>
+			<div id="preview-container">
+				<div id="preview-dot"></div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
