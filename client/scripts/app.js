@@ -4,6 +4,8 @@
 
   App = {};
 
+  var isDrawing = false;
+
 
   /*
   	Init
@@ -41,20 +43,31 @@
   	Draw Events
    */
 
-  $(document).on('drag dragstart dragend', 'canvas', function(e) {
-    var offset, type, x, y;
-    type = e.handleObj.type;
-    offset = $(this).offset();
-    e.offsetX = e.layerX - offset.left;
-    e.offsetY = e.layerY - offset.top;
-    x = e.offsetX;
-    y = e.offsetY;
-    App.draw(x, y, type);
-    App.socket.emit('drawClick', {
-      x: x,
-      y: y,
-      type: type
-    });
+  $(document).on('mousedown', 'canvas', function(e) {
+    isDrawing = true;
+    var x = e.offsetX;
+    var y = e.offsetY;
+    App.draw(x, y, 'dragstart');
+    App.socket.emit('drawClick', { x: x, y: y, type: 'dragstart' });
+  });
+
+  $(document).on('mousemove', function(e) {
+    if (!isDrawing) return;
+    var offset = $(App.canvas).offset();
+    var x = e.pageX - offset.left;
+    var y = e.pageY - offset.top;
+    App.draw(x, y, 'drag');
+    App.socket.emit('drawClick', { x: x, y: y, type: 'drag' });
+  });
+
+  $(document).on('mouseup', function(e) {
+    if (!isDrawing) return;
+    isDrawing = false;
+    var offset = $(App.canvas).offset();
+    var x = e.pageX - offset.left;
+    var y = e.pageY - offset.top;
+    App.draw(x, y, 'dragend');
+    App.socket.emit('drawClick', { x: x, y: y, type: 'dragend' });
   });
 
   $(function() {
